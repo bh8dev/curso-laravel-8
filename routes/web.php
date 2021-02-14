@@ -3,6 +3,7 @@
 use App\Http\Controllers\Post\{
     PostController
 };
+use App\Http\Controllers\Skyhub\B2wController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,3 +22,9 @@ Route::get('/', function () {
 });
 
 Route::get('/posts', [PostController::class, 'index']);
+
+Route::get('/b2w', [B2wController::class, 'index']);
+
+Route::get('/chart', function (){
+    return view('chart.index');
+});
