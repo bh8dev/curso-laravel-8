@@ -1,3 +1,5 @@
+<a href="{{ route('posts.create') }}">Criar novo post</a>
+<hr>
 <h1>Posts cadastrados</h1>
 
 @forelse ($posts as $post)
