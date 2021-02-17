@@ -22,11 +22,10 @@ Route::get('/', function () {
 });
 
 Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
-Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
 Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
+Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
 
 Route::get('/b2w', [B2wController::class, 'index']);
-
 Route::get('/chart', function (){
     return view('chart.index');
 });
