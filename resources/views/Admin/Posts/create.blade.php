@@ -1,7 +1,7 @@
 <h1>Cadastrar novo post</h1>
 
 @if ($errors->any())
-    <section class="alert alert-danger">
+    <section>
         <ul>
             @foreach ($errors->all() as $error)
                 <li>{{ $error }}</li>

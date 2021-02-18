@@ -28,4 +28,31 @@ class PostController extends Controller
         return redirect()->route('posts.index');
     }
 
+    public function show(int $id)
+    {
+        if(!$post = Post::find($id))
+        {
+            return redirect()->route('posts.index');
+        }
+        else
+        {
+            return view('admin.posts.show', compact('post'));
+        }
+    }
+
+    public function destroy(int $id)
+    {
+        if(!$post = Post::find($id))
+        {
+            return redirect()->route('posts.index');
+        }
+        else
+        {
+            $post->delete();
+            return redirect()
+                    ->route('posts.index')
+                    ->with('success', 'Post deletado com sucesso!');
+        }
+    }
+
 }
