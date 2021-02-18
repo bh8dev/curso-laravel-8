@@ -15,7 +15,11 @@
         <li>
             {{ $post->title }}
             <span>
-                [<a href="{{ route('posts.show', $post->id) }}">Ver detalhes</a>]
+                [
+                    <a href="{{ route('posts.show', $post->id) }}">Ver detalhes</a>
+                    |
+                    <a href="{{ route('posts.edit', $post->id) }}">Editar</a>
+                ]
             </span>
         </li>
         <li>{{ $post->content }}</li>

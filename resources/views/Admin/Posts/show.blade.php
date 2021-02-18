@@ -14,7 +14,7 @@
 <form action="{{ route('posts.destroy', $post->id) }}" method="post">
 
     @csrf
-    <input type="hidden" name="_method" value="DELETE">
+    @method('delete')
 
     <button type="submit">Deletar o post: {{ $post->title }}</button>
 </form>
