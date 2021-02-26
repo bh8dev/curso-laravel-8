@@ -7,6 +7,12 @@
     </section>
 @endif
 
+<form action="{{ route('posts.search') }}" method="post">
+    @csrf
+    <input type="text" name="search" placeholder="Digite sua pesquisa" autofocus>
+    <button type="submit">Filtrar</button>
+</form>
+
 <h1>Posts cadastrados</h1>
 
 @foreach ($posts as $post)
@@ -22,5 +28,8 @@
 @endforeach
 
 <hr>
-
-{{ $posts->links() }}
+@if (isset($filters))
+    {{ $posts->appends($filters)->links() }}
+@else
+    {{ $posts->links() }}
+@endif
