@@ -1,35 +1,43 @@
-<a href="{{ route('posts.create') }}">Criar novo post</a>
-<hr>
+@extends('admin.layouts.app')
 
-@if (session('success'))
-    <section>
-        {{ session('success') }}
-    </section>
-@endif
+@section('title', 'Listagem de posts cadastrados')
 
-<form action="{{ route('posts.search') }}" method="post">
-    @csrf
-    <input type="text" name="search" placeholder="Digite sua pesquisa" autofocus>
-    <button type="submit">Filtrar</button>
-</form>
+@section('header')
+    <h1>Posts cadastrados no sistema</h1>
+@endsection
 
-<h1>Posts cadastrados</h1>
+@section('content')
+    <a href="{{ route('posts.create') }}">Criar novo post</a>
+    <hr>
 
-@foreach ($posts as $post)
+    @if (session('success'))
+        <section>
+            {{ session('success') }}
+        </section>
+    @endif
 
-    <p>
-        {{ $post->title }}
-        [
-            <a href="{{ route('posts.edit', $post->id) }}">Editar</a>
-            |
-            <a href="{{ route('posts.show', $post->id) }}">Ver detalhes</a>
-        ]
-    </p>
-@endforeach
+    <form action="{{ route('posts.search') }}" method="post">
+        @csrf
+        <input type="text" name="search" placeholder="Digite sua pesquisa" autofocus>
+        <button type="submit">Filtrar</button>
+    </form>
 
-<hr>
-@if (isset($filters))
-    {{ $posts->appends($filters)->links() }}
-@else
-    {{ $posts->links() }}
-@endif
+    @foreach ($posts as $post)
+
+        <p>
+            {{ $post->title }}
+            [
+                <a href="{{ route('posts.edit', $post->id) }}">Editar</a>
+                |
+                <a href="{{ route('posts.show', $post->id) }}">Ver detalhes</a>
+            ]
+        </p>
+    @endforeach
+
+    <hr>
+    @if (isset($filters))
+        {{ $posts->appends($filters)->links() }}
+    @else
+        {{ $posts->links() }}
+    @endif
+@endsection
