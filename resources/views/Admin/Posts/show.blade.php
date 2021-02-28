@@ -8,6 +8,9 @@
 
 @section('content')
     <ul>
+        <li style="list-style: none">
+            <img src="{{ url("storage/{$post->image}") }}" alt="{{ $post->title }}" style="max-width: 100px; border-radius: 50px;">
+        </li>
         <li>
             <b>Título:</b>
             {{ $post->title }}

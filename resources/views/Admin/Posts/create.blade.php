@@ -7,7 +7,7 @@
 @endsection
 
 @section('content')
-    <form action="{{ route('posts.store') }}" method="post">
+    <form action="{{ route('posts.store') }}" method="post" enctype="multipart/form-data">
         @include('admin.posts.partials.form')
     </form>
 @endsection
