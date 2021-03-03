@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUpdatePost;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class PostController extends Controller
@@ -34,12 +35,14 @@ class PostController extends Controller
             $image = $request->image->storeAs('posts', $filename);
             $data['image'] = $image;
         }
+        else
+        {
+            Post::create($data);
 
-        Post::create($data);
-
-        return redirect()
-                ->route('posts.index')
-                ->with('success', 'Post criado com sucesso!');
+            return redirect()
+                    ->route('posts.index')
+                    ->with('success', 'Post criado com sucesso!');
+        }
     }
 
     public function show(int $id)
@@ -74,7 +77,22 @@ class PostController extends Controller
         }
         else
         {
-            $post->update($request->all());
+            $data = $request->all();
+
+            if($request->image && $request->image->isValid())
+            {
+                if(Storage::exists($post->image))
+                {
+                    Storage::delete($post->image);
+                }
+
+                $filename = Str::of($request->title)->slug('-') . '.' . $request->image->getClientOriginalExtension();
+            
+                $image = $request->image->storeAs('posts', $filename);
+                $data['image'] = $image;
+            }
+
+            $post->update($data);
 
             return redirect()
                     ->route('posts.index')
@@ -88,14 +106,16 @@ class PostController extends Controller
         {
             return redirect()->route('posts.index');
         }
-        else
+        if(Storage::exists($post->image))
         {
-            $post->delete();
-            
-            return redirect()
-                    ->route('posts.index')
-                    ->with('success', 'Post deletado com sucesso!');
+            Storage::delete($post->image);
         }
+        
+        $post->delete();
+        
+        return redirect()
+                ->route('posts.index')
+                ->with('success', 'Post deletado com sucesso!');
     }
 
     public function search(Request $request)
