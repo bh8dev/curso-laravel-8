@@ -33,7 +33,7 @@ class StoreUpdatePost extends FormRequest
             'content' => ['nullable', 'min:5', 'max:10000']
         ];
 
-        $rules['image'] = ($this->method() === 'PUT') ? ['nullable', 'image'] : null;
+        $rules['image'] = ($this->method() === 'PUT') ? ['nullable', 'image'] : $rules['image'];
 
         return $rules;
     }
