@@ -1,5 +1,7 @@
 <?php
 
+require __DIR__. DIRECTORY_SEPARATOR . 'auth.php';
+
 use App\Http\Controllers\Post\PostController;
 use App\Http\Controllers\Skyhub\B2wController;
 use Illuminate\Support\Facades\Route;
@@ -36,3 +38,7 @@ Route::get('/b2w', [B2wController::class, 'index']);
 Route::get('/chart', function (){
     return view('chart.index');
 });
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
